@@ -87,13 +87,12 @@
     -->
 
     <!-- Authorities -->
-    <bean id="event.start" class="org.alfresco.bm.event.producer.RedirectEventProducer" parent="event.base" >
+    <bean id="event.start" class="org.alfresco.bm.event.RenameEventProcessor" parent="event.base" >
         <constructor-arg name="outputEventName" value="createAuthorities" />
-        <property name="chart" value="false"/>
     </bean>
 
     <bean id="event.createAuthorities" class="org.alfresco.bm.processors.AuthoritiesScheduler" parent="event.base" >
-        <constructor-arg name="doneEventName" ref="authoritiesCreated" />
+        <constructor-arg name="doneEventName" value="authoritiesCreated" />
     </bean>
 
     <!-- Sites -->
@@ -102,7 +101,7 @@
         <constructor-arg name="delay" value="1" />
     </bean>
     <bean id="event.loadSites" class="org.alfresco.bm.processors.LoadSitesScheduler" parent="event.base" >
-        <constructor-arg name="doneEventName" ref="sitesCreated" />
+        <constructor-arg name="doneEventName" value="sitesCreated" />
     </bean>
 
     <!-- Files and Folders -->
@@ -112,7 +111,7 @@
         <constructor-arg name="delay" value="1" />
     </bean>
     <bean id="event.loadFilesAndFolders" class="org.alfresco.bm.processors.LoadFilesAndFoldersScheduler" parent="event.base">
-        <constructor-arg name="doneEventName" ref="filesAndFoldersCreated" />
+        <constructor-arg name="doneEventName" value="filesAndFoldersCreated" />
     </bean>
 
     <bean id="producer.filesAndFoldersCreated" class="org.alfresco.bm.event.producer.TerminateEventProducer" parent="producer.base" />
