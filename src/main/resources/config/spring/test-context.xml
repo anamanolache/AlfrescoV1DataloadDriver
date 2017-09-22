@@ -86,30 +86,35 @@
         The 'producer.processDone' effectively absorbs the 'processDone' events.
     -->
 
-    <!-- Good practice to start with an event rename as the 'start' event is reserved -->    
-    <bean id="event.start" class="org.alfresco.bm.event.RenameEventProcessor" parent="event.base" >
-        <constructor-arg name="outputEventName" value="scheduleProcesses" />
+    <!-- Authorities -->
+    <bean id="event.start" class="org.alfresco.bm.event.producer.RedirectEventProducer" parent="event.base" >
+        <constructor-arg name="outputEventName" value="createAuthorities" />
         <property name="chart" value="false"/>
     </bean>
-    <bean id="event.scheduleProcesses" class="org.alfresco.bm.process.ScheduleProcesses" parent="event.base" >
-        <constructor-arg name="sessionService" ref="sessionService" />
-        <constructor-arg name="processDataDAO" ref="processDataDAO" />
-        <constructor-arg name="testRunFqn" value="${testRunFqn}" />
-        <constructor-arg name="processCount" value="${proc.processCount}" />
-        <constructor-arg name="timeBetweenProcesses" value="${proc.timeBetweenProcesses}" />
-        <property name="batchSize" value="${proc.scheduleBatchSize}" />
-        <property name="chart" value="true" />
+
+    <bean id="event.createAuthorities" class="org.alfresco.bm.processors.AuthoritiesScheduler" parent="event.base" >
+        <constructor-arg name="doneEventName" ref="authoritiesCreated" />
     </bean>
-    <bean id="producer.process" class="org.alfresco.bm.event.producer.RedirectEventProducer" parent="producer.base" >
-        <constructor-arg name="newEventName" value="executeProcess" />
+
+    <!-- Sites -->
+    <bean id="producer.authoritiesCreated" class="org.alfresco.bm.event.producer.RedirectEventProducer" parent="producer.base" >
+        <constructor-arg name="newEventName" value="loadSites" />
         <constructor-arg name="delay" value="1" />
     </bean>
-    <bean id="event.executeProcess" class="org.alfresco.bm.process.ExecuteProcess" parent="event.base" >
-        <constructor-arg name="sessionService" ref="sessionService" />
-        <constructor-arg name="processDataDAO" ref="processDataDAO" />
-        <constructor-arg name="testFileService" ref="testFileService" />
-        <property name="chart" value="true" />
+    <bean id="event.loadSites" class="org.alfresco.bm.processors.LoadSitesScheduler" parent="event.base" >
+        <constructor-arg name="doneEventName" ref="sitesCreated" />
     </bean>
-    <bean id="producer.processDone" class="org.alfresco.bm.event.producer.TerminateEventProducer" parent="producer.base" />
+
+    <!-- Files and Folders -->
+    <bean id="producer.sitesCreated" class="org.alfresco.bm.event.producer.RedirectEventProducer"
+          parent="producer.base">
+        <constructor-arg name="newEventName" value="loadFilesAndFolders" />
+        <constructor-arg name="delay" value="1" />
+    </bean>
+    <bean id="event.loadFilesAndFolders" class="org.alfresco.bm.processors.LoadFilesAndFoldersScheduler" parent="event.base">
+        <constructor-arg name="doneEventName" ref="filesAndFoldersCreated" />
+    </bean>
+
+    <bean id="producer.filesAndFoldersCreated" class="org.alfresco.bm.event.producer.TerminateEventProducer" parent="producer.base" />
     
 </beans>
