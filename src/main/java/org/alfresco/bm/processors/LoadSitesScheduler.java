@@ -18,7 +18,6 @@ public class LoadSitesScheduler extends BaseScheduler
     @Override
     protected EventResult processEvent(Event event) throws Exception
     {
-        List<Event> nextEvents = new ArrayList<>();
-        return new EventResult(doneEventName, nextEvents);
+        return schedulingDone();
     }
 }
