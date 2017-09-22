@@ -41,7 +41,7 @@ To use, follow instructions on:
       mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate
             -DarchetypeRepository=http://artifacts.alfresco.com/nexus/content/groups/public/archetype-catalog.xml
             -DarchetypeGroupId=org.alfresco
-            -DarchetypeArtifactId=alfresco-benchmark-sample-archetype
+            -DarchetypeArtifactId=alfresco-benchmark-v1-dataload-archetype
    Parameters can be chosen at the prompt or specified up front:
       -Dpackage=com.example
       -DartifactId=mytest

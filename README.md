@@ -50,7 +50,7 @@ Git:
     Fill in test details:   
         - Test Name: MyFirstTest01  
         - Test Description: Getting started 
-        - Test Definition: alfresco-benchmark-sample-xxx     
+        - Test Definition: alfresco-benchmark-v1-dataload-xxx
     Click "Ok".
  
 7.Edit test properties

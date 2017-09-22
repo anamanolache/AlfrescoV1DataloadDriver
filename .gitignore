@@ -1,4 +1,4 @@
 .idea/
-alfresco-benchmark-sample.iml
+alfresco-benchmark-v1-dataload.iml
 target/
 *.log

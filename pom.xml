@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>alfresco-benchmark-sample</artifactId>
+    <artifactId>alfresco-benchmark-v1-dataload</artifactId>
     <packaging>war</packaging>
     <properties>
         <bm.tomcat.port>9081</bm.tomcat.port>
@@ -35,6 +35,16 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+       <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+       </dependency>
     </dependencies>
     <!-- Uncomment this for your project
     <scm>
