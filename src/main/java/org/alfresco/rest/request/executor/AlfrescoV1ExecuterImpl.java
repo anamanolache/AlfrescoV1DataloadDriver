@@ -17,7 +17,7 @@ public class AlfrescoV1ExecuterImpl implements RestV1Executor {
 	}
 	
 	@Override
-	public Response executeV1Query(RequestType type, String url) {
+	public Response executeV1Query(RequestType type, String url, String... requestBody) {
 		if(requestSpecification==null)
 		{
 			updateAuthentication(username,password);
@@ -34,10 +34,24 @@ public class AlfrescoV1ExecuterImpl implements RestV1Executor {
 			return requestSpecification.head(url);
 
 		case POST:
-			return requestSpecification.post(url);
+			if(requestBody==null)
+			{
+				return requestSpecification.post(url);
+			}
+			else
+			{
+				return requestSpecification.given().contentType("application/json").and().body(requestBody[0]).post(url);
+			}
 
 		case PUT:
-			return requestSpecification.put(url);
+			if(requestBody==null)
+			{
+				return requestSpecification.put(url);
+			}
+			else
+			{
+				return requestSpecification.given().contentType("application/json").and().body(requestBody[0]).put(url);
+			}
 		}
 		return null;
 	}

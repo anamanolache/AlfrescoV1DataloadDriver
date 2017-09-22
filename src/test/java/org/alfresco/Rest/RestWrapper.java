@@ -1,13 +1,16 @@
 package org.alfresco.Rest;
 
+import java.util.UUID;
+
 import org.alfresco.rest.request.user.AuthorityV1Request;
 import org.junit.Test;
 
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.*;
+import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 
 public class RestWrapper {
+	AuthorityV1Request authority = new AuthorityV1Request();
 
 	@Test
 	public void randomTest()
@@ -20,7 +23,12 @@ public class RestWrapper {
 	@Test
 	public void listUsers()
 	{
-		AuthorityV1Request authority = new AuthorityV1Request();
 		authority.listUsers();
+	}
+	
+	@Test
+	public void createUsers()
+	{
+		authority.createUser("userA"+UUID.randomUUID(), "password");
 	}
 }
