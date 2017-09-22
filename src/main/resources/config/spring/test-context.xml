@@ -92,12 +92,16 @@
     </bean>
 
     <bean id="event.createAuthorities" class="org.alfresco.bm.processors.AuthoritiesScheduler" parent="event.base" >
-        <constructor-arg name="doneEventName" value="authoritiesCreated" />
         <property name="countUsers" value="${authorities.users.count}" />
         <property name="countGroups" value="${authorities.groups.count}" />
         <property name="usernamePattern" value="${authorities.users.pattern}" />
         <property name="groupNamePattern" value="${authorities.groups.pattern}" />
     </bean>
+
+    <bean id="event.createUser" class="org.alfresco.bm.process.CreateUserProcess" parent="event.base">
+        <property name="api" ref="authoritiesApi" />
+    </bean>
+    <bean id="producer.userCreated" class="org.alfresco.bm.event.producer.TerminateEventProducer" parent="producer.base" />
 
     <!-- Sites -->
     <bean id="producer.authoritiesCreated" class="org.alfresco.bm.event.producer.RedirectEventProducer" parent="producer.base" >
@@ -105,7 +109,6 @@
         <constructor-arg name="delay" value="1" />
     </bean>
     <bean id="event.loadSites" class="org.alfresco.bm.processors.LoadSitesScheduler" parent="event.base" >
-        <constructor-arg name="doneEventName" value="sitesCreated" />
     </bean>
 
     <!-- Files and Folders -->
@@ -115,14 +118,13 @@
         <constructor-arg name="delay" value="1" />
     </bean>
     <bean id="event.loadFilesAndFolders" class="org.alfresco.bm.processors.LoadFilesAndFoldersScheduler" parent="event.base">
-        <constructor-arg name="doneEventName" value="filesAndFoldersCreated" />
     </bean>
 
     <bean id="producer.filesAndFoldersCreated" class="org.alfresco.bm.event.producer.TerminateEventProducer" parent="producer.base" />
 
 
     <!-- Utils -->
-    <bean id="v1Api" class="org.alfresco.rest.request.AbstractV1Request">
+    <bean id="v1Api" class="org.alfresco.rest.request.AbstractV1Request" abstract="true" scope="prototype">
         <property name="serverAddres" value="${alfresco.scheme}://${alfresco.server}:${alfresco.port}"/>
         <property name="v1Path" value="alfresco/api/-default-/public/alfresco/versions/1/" />
     </bean>

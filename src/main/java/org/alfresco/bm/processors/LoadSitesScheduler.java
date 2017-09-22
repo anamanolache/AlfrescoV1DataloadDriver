@@ -1,16 +1,13 @@
 package org.alfresco.bm.processors;
 
+import org.alfresco.bm.event.AbstractEventProcessor;
 import org.alfresco.bm.event.Event;
 import org.alfresco.bm.event.EventResult;
 import org.alfresco.rest.request.site.SiteV1RequestImpl;
 
-public class LoadSitesScheduler extends BaseScheduler
+public class LoadSitesScheduler extends AbstractEventProcessor
 {
-
-    public LoadSitesScheduler(String doneEventName)
-    {
-        super(doneEventName);
-    }
+    public static final String DONE_EVENT_NAME = "sitesCreated";
 
     @Override
     protected EventResult processEvent(Event event) throws Exception
@@ -18,8 +15,8 @@ public class LoadSitesScheduler extends BaseScheduler
 
         SiteV1RequestImpl siteV1Request = new SiteV1RequestImpl();
         siteV1Request.listSites();
-        
 
-        return schedulingDone();
+
+        return Utils.schedulingDone(DONE_EVENT_NAME);
     }
 }

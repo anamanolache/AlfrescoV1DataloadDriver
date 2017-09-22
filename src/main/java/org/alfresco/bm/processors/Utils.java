@@ -7,16 +7,9 @@ import org.alfresco.bm.event.AbstractEventProcessor;
 import org.alfresco.bm.event.Event;
 import org.alfresco.bm.event.EventResult;
 
-public abstract class BaseScheduler extends AbstractEventProcessor
+public class Utils
 {
-    protected String doneEventName;
-
-    public BaseScheduler(String doneEventName)
-    {
-        this.doneEventName = doneEventName;
-    }
-
-    protected EventResult schedulingDone()
+    public static EventResult schedulingDone(String doneEventName)
     {
         List<Event> nextEvents = new ArrayList<>();
         Event doneEvent = new Event(doneEventName, null);

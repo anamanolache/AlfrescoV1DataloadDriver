@@ -3,6 +3,7 @@ package org.alfresco.rest.request.user;
 import com.jayway.restassured.response.Response;
 import org.alfresco.rest.request.AbstractV1Request;
 import org.alfresco.rest.request.executor.RequestType;
+import org.springframework.context.annotation.Scope;
 
 public class AuthorityV1Request extends AbstractV1Request
 {
