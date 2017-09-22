@@ -1,9 +1,10 @@
 package org.alfresco.bm.process;
 
+import java.util.List;
+
 import org.alfresco.bm.event.AbstractEventProcessor;
 import org.alfresco.bm.event.Event;
 import org.alfresco.bm.event.EventResult;
-import org.alfresco.bm.processors.Utils;
 import org.alfresco.rest.request.user.AuthorityV1Request;
 
 public class CreateUserProcess extends AbstractEventProcessor
@@ -21,7 +22,10 @@ public class CreateUserProcess extends AbstractEventProcessor
     @Override
     protected EventResult processEvent(Event event) throws Exception
     {
-        api.listUsers();
-        return Utils.schedulingDone(DONE_EVENT_NAME);
+        String username = (String)event.getData();
+
+        api.createUser(username, username);
+
+        return new EventResult("Created user - " + username , new Event(DONE_EVENT_NAME, null));
     }
 }

@@ -17,6 +17,6 @@ public class LoadSitesScheduler extends AbstractEventProcessor
         siteV1Request.listSites();
 
 
-        return Utils.schedulingDone(DONE_EVENT_NAME);
+        return new EventResult("done", new Event(DONE_EVENT_NAME, null));
     }
 }

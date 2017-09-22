@@ -2,13 +2,16 @@ package org.alfresco.rest.request;
 
 import org.alfresco.rest.request.executor.AlfrescoV1ExecuterImpl;
 import org.alfresco.rest.request.executor.RestV1Executor;
+import org.alfresco.rest.request.user.AuthorityV1Request;
+import org.springframework.context.ApplicationContext;
 
 public abstract class AbstractV1Request
 {
 	protected String serverAddres;
 	protected String v1Path;
 	protected String endpointName;
-	public RestV1Executor executor = new AlfrescoV1ExecuterImpl("admin", "admin");
+	//private RestV1Executor executor = new AlfrescoV1ExecuterImpl("admin", "admin");
+	private ApplicationContext applicationContext;
 
 	public void setServerAddres(String serverAddres)
 	{
@@ -25,8 +28,18 @@ public abstract class AbstractV1Request
 		this.endpointName = endpointName;
 	}
 
+	public void setApplicationContext(ApplicationContext applicationContext)
+	{
+		this.applicationContext = applicationContext;
+	}
+
 	public String getURL()
 	{
 		return serverAddres + "/" + v1Path + "/" + endpointName;
+	}
+
+	protected RestV1Executor getExecutor()
+	{
+		return new AlfrescoV1ExecuterImpl("admin", "admin");
 	}
 }

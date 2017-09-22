@@ -23,13 +23,13 @@ public class AuthorityV1Request extends AbstractV1Request
 		values.put("password", password);
 		new JSONObject();
 		putBody= JSONObject.toJSONString(values);
-		Response newusers = executor.executeV1Query(RequestType.POST, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/people", putBody);
+		Response newusers = getExecutor().executeV1Query(RequestType.POST, getURL(), putBody);
 		newusers.getBody().prettyPrint();
 	}
 	
 	public void listUsers()
 	{
-		Response users = executor.executeV1Query(RequestType.GET, getURL());
+		Response users = getExecutor().executeV1Query(RequestType.GET, getURL());
 		System.out.println(users.getBody().prettyPrint());
 	}
 }

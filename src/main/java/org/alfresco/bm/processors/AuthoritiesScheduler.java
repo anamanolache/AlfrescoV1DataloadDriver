@@ -1,7 +1,9 @@
 package org.alfresco.bm.processors;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.alfresco.bm.event.AbstractEventProcessor;
 import org.alfresco.bm.event.Event;
@@ -16,6 +18,9 @@ public class AuthoritiesScheduler extends AbstractEventProcessor
     private int countGroups;
     private String usernamePattern;
     private String groupNamePattern;
+
+    private int scheduledUsers = 0;
+    private int scheduleDelay = 5000;
 
     public void setCountUsers(int countUsers)
     {
@@ -40,15 +45,26 @@ public class AuthoritiesScheduler extends AbstractEventProcessor
     @Override
     protected EventResult processEvent(Event event) throws Exception
     {
-        List<Event> nextEvents = new ArrayList<>();
-        for(int i=0; i< countUsers; i++)
+        List<Event> nextEvents = new LinkedList<>();
+        if(scheduledUsers < countUsers)
         {
-            Event createUserEvent = new Event(CreateUserProcess.CREATE_USER_EVENT, "username");
-            nextEvents.add(createUserEvent);
+            for (int i = 0; i < countUsers; i++)
+            {
+                Event createUserEvent = new Event(CreateUserProcess.CREATE_USER_EVENT, usernamePattern.replace("%", UUID.randomUUID().toString().substring(0, 8)));
+                nextEvents.add(createUserEvent);
+            }
+            scheduledUsers += countUsers;
+
+            // reschedule self
+            Event rescheduleEvent = new Event(event.getName(), scheduleDelay, null);
+            nextEvents.add(rescheduleEvent);
+
+            return new EventResult("Raised " + nextEvents.size() + " jobs. Reschedule self.", nextEvents);
         }
-        // add done event
-        Event doneEvent = new Event(DONE_EVENT_NAME, null);
-        nextEvents.add(doneEvent);
-        return new EventResult(DONE_EVENT_NAME, nextEvents);
+        else
+        {
+            // no more work to do,  raise done event
+            return new EventResult("done", new Event(DONE_EVENT_NAME, null));
+        }
     }
 }

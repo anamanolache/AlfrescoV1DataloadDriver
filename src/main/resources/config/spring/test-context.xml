@@ -124,9 +124,9 @@
 
 
     <!-- Utils -->
-    <bean id="v1Api" class="org.alfresco.rest.request.AbstractV1Request" abstract="true" scope="prototype">
+    <bean id="v1Api" class="org.alfresco.rest.request.AbstractV1Request" abstract="true">
         <property name="serverAddres" value="${alfresco.scheme}://${alfresco.server}:${alfresco.port}"/>
-        <property name="v1Path" value="alfresco/api/-default-/public/alfresco/versions/1/" />
+        <property name="v1Path" value="alfresco/api/-default-/public/alfresco/versions/1" />
     </bean>
 
     <bean id="authoritiesApi" class="org.alfresco.rest.request.user.AuthorityV1Request" parent="v1Api">

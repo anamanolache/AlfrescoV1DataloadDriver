@@ -11,6 +11,6 @@ public class LoadFilesAndFoldersScheduler extends AbstractEventProcessor
     @Override
     protected EventResult processEvent(Event event) throws Exception
     {
-        return Utils.schedulingDone(DONE_EVENT_NAME);
+        return new EventResult("done", new Event(DONE_EVENT_NAME, null));
     }
 }
