@@ -2,3 +2,6 @@
 alfresco-benchmark-v1-dataload.iml
 target/
 *.log
+.settings/
+.classpath
+.project
