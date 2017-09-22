@@ -9,12 +9,19 @@ public class AuthorityV1Request extends AbstractV1Request
 
 	public void createUser(String username, String password)
 	{
+		System.out.println("API V1 Create User");
+		//executor.executeV1Query(RequestType.PUT, url)
+	}
+
+	public void createGroup(String name)
+	{
+		System.out.println("API V1 Create Group");
 		//executor.executeV1Query(RequestType.PUT, url)
 	}
 	
 	public void listUsers()
 	{
-		Response users = executor.executeV1Query(RequestType.GET, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/people");
+		Response users = executor.executeV1Query(RequestType.GET, getURL());
 		System.out.println(users.getBody().prettyPrint());
 	}
 }

@@ -93,6 +93,10 @@
 
     <bean id="event.createAuthorities" class="org.alfresco.bm.processors.AuthoritiesScheduler" parent="event.base" >
         <constructor-arg name="doneEventName" value="authoritiesCreated" />
+        <property name="countUsers" value="${authorities.users.count}" />
+        <property name="countGroups" value="${authorities.groups.count}" />
+        <property name="usernamePattern" value="${authorities.users.pattern}" />
+        <property name="groupNamePattern" value="${authorities.groups.pattern}" />
     </bean>
 
     <!-- Sites -->
@@ -115,5 +119,16 @@
     </bean>
 
     <bean id="producer.filesAndFoldersCreated" class="org.alfresco.bm.event.producer.TerminateEventProducer" parent="producer.base" />
-    
+
+
+    <!-- Utils -->
+    <bean id="v1Api" class="org.alfresco.rest.request.AbstractV1Request">
+        <property name="serverAddres" value="${alfresco.scheme}://${alfresco.server}:${alfresco.port}"/>
+        <property name="v1Path" value="alfresco/api/-default-/public/alfresco/versions/1/" />
+    </bean>
+
+    <bean id="authoritiesApi" class="org.alfresco.rest.request.user.AuthorityV1Request" parent="v1Api">
+        <property name="endpointName" value="people" />
+    </bean>
+
 </beans>
