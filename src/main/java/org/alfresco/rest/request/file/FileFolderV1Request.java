@@ -15,19 +15,19 @@ public class FileFolderV1Request extends AbstractV1Request
 
 	public void deleteNode(String nodeId)
 	{
-		Response response = executor.executeV1Query(RequestType.DELETE, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId);
+		Response response = getExecutor().executeV1Query(RequestType.DELETE, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId);
 		response.getBody().prettyPrint();
 	}
 	
 	public void listNodeChildren(String nodeId)
 	{
-		Response response = executor.executeV1Query(RequestType.GET, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId+"/children");
+		Response response = getExecutor().executeV1Query(RequestType.GET, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId+"/children");
 		response.getBody().prettyPrint();
 	}
 	
 	public void getNode(String nodeId)
 	{
-		Response response = executor.executeV1Query(RequestType.GET, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId);
+		Response response = getExecutor().executeV1Query(RequestType.GET, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId);
 		response.getBody().prettyPrint();
 	}
 	
@@ -38,7 +38,7 @@ public class FileFolderV1Request extends AbstractV1Request
 		values.put("nodeType", nodeType);
 		new JSONObject();
 		String postBody = JSONObject.toJSONString(values);
-		Response response = executor.executeV1Query(RequestType.POST, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId+"/children", postBody);
+		Response response = getExecutor().executeV1Query(RequestType.POST, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId+"/children", postBody);
 		response.getBody().prettyPrint();
 		
 		Map<String, Object> map = response.getBody().jsonPath().get("entry");
@@ -49,7 +49,7 @@ public class FileFolderV1Request extends AbstractV1Request
 	{
 		new JSONObject();
 		String putBody = JSONObject.toJSONString(properties);
-		Response response = executor.executeV1Query(RequestType.PUT, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId, putBody);
+		Response response = getExecutor().executeV1Query(RequestType.PUT, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId, putBody);
 		response.getBody().prettyPrint();
 	}
 	
@@ -59,7 +59,7 @@ public class FileFolderV1Request extends AbstractV1Request
 		values.put("targetParentId", targetId);
 		new JSONObject();
 		String postBody = JSONObject.toJSONString(values);
-		Response response = executor.executeV1Query(RequestType.POST, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId+"/move", postBody);
+		Response response = getExecutor().executeV1Query(RequestType.POST, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/nodes/"+nodeId+"/move", postBody);
 		response.getBody().prettyPrint();
 	}
 }

@@ -15,7 +15,7 @@ public class SiteV1RequestImpl extends AbstractV1Request implements SiteV1Reques
         {
                 List<InternalBMSite> listOfSites = new ArrayList<InternalBMSite>();
 
-                Response response = executor
+                Response response = getExecutor()
                         .executeV1Query(RequestType.GET, "http://localhost:8080/alfresco/api/-default-/public/alfresco/versions/1/sites");
                 //Map map = (Map)response.getBody().jsonPath().get("list/entries");
                 List list = (List) ((Map) response.getBody().jsonPath().get("list//entries")).get("entries");
@@ -38,7 +38,7 @@ public class SiteV1RequestImpl extends AbstractV1Request implements SiteV1Reques
         @Override public boolean createSite(String shortSiteId, String siteName, String siteType)
         {
 
-                Response response = executor
+                Response response = getExecutor()
                         .executeV1Query(RequestType.POST, "http://localhost:8080/alfresco/api/-default-/public/alfresco/versions/1/sites");
                 return false;
         }

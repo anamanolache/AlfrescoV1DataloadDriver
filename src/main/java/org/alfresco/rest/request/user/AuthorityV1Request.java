@@ -3,11 +3,11 @@ package org.alfresco.rest.request.user;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
-
 import com.jayway.restassured.response.Response;
+
 import org.alfresco.rest.request.AbstractV1Request;
 import org.alfresco.rest.request.executor.RequestType;
+import org.json.simple.JSONObject;
 
 public class AuthorityV1Request extends AbstractV1Request
 {
@@ -16,13 +16,13 @@ public class AuthorityV1Request extends AbstractV1Request
 	{
 		String postBody = createUserJSON(username, password);
 
-		Response newusers = executor.executeV1Query(RequestType.POST, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/people", postBody);
+		Response newusers = getExecutor().executeV1Query(RequestType.POST, getURL(), postBody);
 		newusers.getBody().prettyPrint();
 	}
 	
 	public void listUsers()
 	{
-		Response users = executor.executeV1Query(RequestType.GET, "http://192.168.56.101:8080/alfresco/api/-default-/public/alfresco/versions/1/people");
+		Response users = getExecutor().executeV1Query(RequestType.GET, getURL());
 		System.out.println(users.getBody().prettyPrint());
 	}
 	
