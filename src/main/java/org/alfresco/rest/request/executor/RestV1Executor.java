@@ -1,4 +1,4 @@
-package org.alfresco.rest.request;
+package org.alfresco.rest.request.executor;
 import com.jayway.restassured.response.*;
 
 public interface RestV1Executor {

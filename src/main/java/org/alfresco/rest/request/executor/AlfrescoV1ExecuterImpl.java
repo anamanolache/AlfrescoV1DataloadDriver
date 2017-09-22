@@ -1,4 +1,4 @@
-package org.alfresco.rest.request;
+package org.alfresco.rest.request.executor;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
@@ -10,7 +10,7 @@ public class AlfrescoV1ExecuterImpl implements RestV1Executor {
 	protected String password;
 	protected RequestSpecification requestSpecification;
 	
-	AlfrescoV1ExecuterImpl (String initialUsername, String initialPassword)
+	public AlfrescoV1ExecuterImpl (String initialUsername, String initialPassword)
 	{
 		this.username = initialUsername;
 		this.password = initialPassword;

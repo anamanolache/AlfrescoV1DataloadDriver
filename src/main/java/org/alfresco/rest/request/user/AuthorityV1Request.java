@@ -1,8 +1,11 @@
-package org.alfresco.rest.request;
+package org.alfresco.rest.request.user;
 
 import com.jayway.restassured.response.Response;
+import org.alfresco.rest.request.AbstractV1Request;
+import org.alfresco.rest.request.executor.RequestType;
 
-public class AuthorityV1Request extends AbstractV1Request {
+public class AuthorityV1Request extends AbstractV1Request
+{
 
 	public void createUser(String username, String password)
 	{

@@ -1,6 +1,6 @@
 package org.alfresco.Rest;
 
-import org.alfresco.rest.request.AuthorityV1Request;
+import org.alfresco.rest.request.user.AuthorityV1Request;
 import org.junit.Test;
 
 import com.jayway.restassured.RestAssured;
